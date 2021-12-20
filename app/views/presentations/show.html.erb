@@ -1,0 +1,72 @@
+<!-- Jumbotron class to display attributes of the particular presentation. -->
+<div class="jumbotron">
+  <h1 class="display-4"> <%= @presentation.Name %></h1>
+  <br/>
+  <div class="card border-info mb-3 text-center" style="width: 12rem;">
+    <div class="card-body">
+      <p class="card-text">Time:</strong> <%= @presentation.Time %> </p>
+      <p>Date:</strong> <%= @presentation.Date %> </p>
+    </div>
+  </div>
+
+    <% evaluations = Evaluation.where("presentation_id = ?", @presentation.id) %>
+
+  <table class="table table-striped table-bordered table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <th>Reviewer Id</th>
+    <th>Score</th>
+    <th>Comment</th>
+    <th>Presentation Id</th>
+    <% if current_user.role == "Teacher" %>
+      <%# <th>Modify</th> %>
+      <th>Delete</th>
+    <% end %>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% if @presentation.student_id == current_user.id || current_user.role == "Teacher"%>
+    <% evaluations.each do |evaluation| %>
+      <tr>
+        <td><%= evaluation.From %></td>
+        <td><%= evaluation.score %></td>
+        <td><%= evaluation.comment %></td>
+        <td><%= evaluation.presentation_id%></td>
+        <% if current_user.role == "Teacher" %>
+          <%# <td><%= link_to 'Modify', edit_evaluation_path(@presentation, evaluation) %>
+          <td><%= link_to 'Delete', evaluation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% elsif (evaluations = Evaluation.where(presentation_id: @presentation.id, From: current_user.id)).length != 0 %>
+    <% evaluations = Evaluation.where(presentation_id: @presentation.id, From: current_user.id).all %>
+    <% evaluations.each do |evaluation| %>
+      <tr>
+        <td><%= evaluation.From %></td>
+        <td><%= evaluation.score %></td>
+        <td><%= evaluation.comment %></td>
+        <td><%= evaluation.presentation_id%></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+  </p>
+  <hr class="my-4">
+  <p class="lead">
+
+
+    <% if current_user.role == "Teacher" %>
+      <%= link_to 'Edit', edit_presentation_path(@presentation), class: "btn btn-secondary" %>
+      <%= link_to 'Back to admin', admin_path, class: "btn btn-secondary" %>
+    <% end %>
+    <%= link_to 'Back to presentation', presentations_path, class: "btn btn-secondary" %>
+
+    <%# The user is able to add a new evaluation if they are not thre presenter or did not review that presentation yet %>
+    <% if @presentation.student_id != current_user.id && (evaluations = Evaluation.where(presentation_id: @presentation.id, From: current_user.id)).length == 0 %>
+      <%= link_to 'New Evaluation',  new_presentation_evaluation_path(:presentation_id => @presentation.id) , class:"btn btn-secondary"%>
+    <% end %>
+   
+  </p>
+</div>
+

@@ -1,0 +1,43 @@
+<!--Error checking when creating presentations.-->
+<%= form_with(model: [@user, presentation], local: true) do |form| %>
+  <% if presentation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(presentation.errors.count, "error") %> prohibited this presentation from being saved:</h2>
+
+      <ul>
+        <% presentation.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!--Fields for user to enter to create presentations.-->
+  <div class="field form-group">
+    <h5>Name:  </h5>
+    <%= form.text_field :Name, class:"form-control", placeholder: "Name" %>
+    <br/>
+  </div>
+
+  <div class="field">
+    <h5>Time (Enter in hh:mm format):  </h5>
+    <%= form.text_field :Time, class:"form-control", placeholder: "Time" %>
+    <br/>
+  </div>
+
+  <div class="field form-group">
+    <h5>Date (Enter in mm/dd/yyyy format): </h5>
+    <%= form.text_field :Date, class:"form-control", placeholder: "Date" %>
+    <br/>
+  </div>
+
+  <div class="field">
+        <%= form.text_field :student_id, autocomplete_source: @user_id, class:"form-control", value: params[:student_id] %>
+      
+    <br/>
+  </div>
+
+  <div class="actions form-group">
+    <%= form.submit class:'btn btn-secondary'%>
+  </div>
+<% end %>

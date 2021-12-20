@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Evaluations</h1>
+
+<!--Table header to display evaluations and their attributes-->
+<table class="table table-striped table-bordered table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <th>Reviewer Id</th> <!-- "From" field in DB-->
+    <th>Score</th>
+    <th>Comment</th>
+    <th>Presentation Id</th>
+    <!--If user is teacher, allows to edit or delete evaluation-->
+    <% if current_user.role == "Teacher" %>
+      <%# <th>Edit</th> %>
+      <th>Delete<th>
+    <% end %>
+  </tr>
+  </thead>
+  <!--Table content to display evaluations and their attributes-->
+  <tbody>
+  <% @evaluations.each do |evaluation| %>
+    <!--Content of each evaluations-->
+    <tr>
+      <td><%= evaluation.From %></td>
+      <td><%= evaluation.score %></td>
+      <td><%= evaluation.comment %></td>
+      <td><%= evaluation.presentation_id%></td>
+      <% if current_user.role == "Teacher"%>
+        <%# <td><%= link_to 'Edit', edit_evaluation_path(evaluation)</td> %>
+        <td><%= link_to 'Destroy', evaluation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+
+<br>
+
+<%# <%= link_to 'New Evaluation', new_evaluation_path , class:"btn btn-secondary"%> 
+<%= link_to 'Back to presentation', presentations_path , class:"btn btn-secondary"%>
+
+
+

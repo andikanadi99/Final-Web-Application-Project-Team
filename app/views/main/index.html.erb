@@ -1,0 +1,58 @@
+<div>
+  <!-- Welcome page for user -->
+    <h1 class="d-flex align-items-center justify-content-center"> Welcome to Audience Evals!! </h1> <br>
+    <p> 
+        This tool assists in the evaluation of presentations. This site allows verified site users to leave feedback for class presentations.
+    </p>
+  <!-- Instruction for user to see if they are either a teacher or student -->
+        <h2>For students: </h2>
+            <ul>
+                <li> Submit scores and comments for a presentation by 
+                selecting "Evaluation" in the Presentation List view</li>
+                <li> View feedback for your presentation </li>
+            </ul>
+        <h2>For instructors: </h2>
+            <ul>
+                <li> Create new presentation events for which evaluations can be submitted</li>
+                <li> Use administrative interface to view scores and comments submitted for a presentaion </li>
+            </ul>
+    <br>
+<!-- Display options depend upon if signed in or not and if teacher or student -->
+<div class="button-center">
+    <% if not user_signed_in? %>
+    <p>To get started, login or create an account!</p> 
+        <div class="button-group">
+            <ul>
+                <li type="button" class="btn btn-primary btn-block">
+                    <%= link_to "Login", new_user_session_path, class:"nav-link" %>
+                </li>
+                <li type="button" class="btn btn-primary btn-block">
+                    <%= link_to "Create Account", new_user_registration_path, class:"nav-link" %>
+                </li>
+            </ul>
+        </div>
+    <% else %>
+        <p> Select one of the following options!</p> 
+            <div class="button-group">
+                <ul>
+                        <li class="btn btn-primary btn-block">
+                            <%= link_to "View Presentations", presentations_path, class:"nav-link" %>
+                        </li>
+                    </ul>
+            </div>
+            <% if current_user.role == "Teacher" %>
+                <div class="button-group">
+                    <ul>
+                        <li class="btn btn-primary btn-block">
+                            <%= link_to "Admin Page", admin_path, class:"nav-link" %>
+                        </li>
+                    </ul>
+                </div>
+            <% end %>
+        </div>
+    
+    <% end %>
+
+</div>
+
+

@@ -1,0 +1,43 @@
+<!--Error checking when creating evaluations.-->
+<%= form_with(model: [@presentation, evaluation], local: true) do |form| %>
+  <% if evaluation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(evaluation.errors.count, "error") %> prohibited this evaluation from being saved:</h2>
+
+      <ul>
+        <% evaluation.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!--Fields for user to enter to create evaluation.-->
+  <div class="field">
+    <%= form.text_field :From, class:"form-control", value: current_user.id, type: :hidden%>
+    <br/>
+  </div>
+
+  <div class="field">
+    <h4> Enter a score from 1-10. (10 is best score, 1 is worst) </h4>
+    <%= form.text_field :score, class:"form-control", placeholder: "Score" %>
+    <br/>
+  </div>
+
+  <div class="field">
+    <h4> Comment: </h4>
+    <%= form.text_field :comment, class:"form-control", placeholder: "Comment" %>
+    <br/>
+  </div>
+
+  <div class="field">
+    <%# <h4>Presentation ID</h4> %>
+    <%# <%= form.text_field :presentation_id, autocomplete_source: params[:presentation_id], class:"form-control", :readonly => true %> 
+    <%= form.text_field :presentation_id, autocomplete_source: params[:presentation_id], class:"form-control", value: params[:presentation_id], type: :hidden %>
+    <br/>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class:'btn btn-secondary'%>
+  </div>
+<% end %>

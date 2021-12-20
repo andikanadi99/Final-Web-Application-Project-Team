@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+
+one:
+  From: Andika Yudhatrisna
+  score: 9
+  comment: Amazing!
+  presentation_id: 5
+two:
+  From: Thomas Jefferson
+  score: 7
+  comment: Pretty good.
+  presentation_id: 5

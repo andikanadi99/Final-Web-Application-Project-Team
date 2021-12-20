@@ -1,0 +1,19 @@
+<!-- Jumbotron class to display attributes of the particular evaluation. -->
+<div class="jumbotron">
+  <h1 class="display-4"> <%= @evaluation.From %></h1>
+  <br/>
+  <div class="card border-info mb-3">
+    <div class="card-header">
+      <h4>Score:</strong> <%= @evaluation.score %></h4>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Comment: </h5>
+      <p class="card-text"><%= @evaluation.comment %> </p>
+    </div>
+  </div>
+  <p class="lead">
+    <%# <%= link_to 'Edit', edit_evaluation_path(@evaluation) , class: "btn btn-secondary" %> 
+    <%= link_to 'Back', evaluations_path , class: "btn btn-dark" %>
+  </p>
+</div>
+

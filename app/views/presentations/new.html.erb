@@ -1,0 +1,11 @@
+<br/>
+<!--Card class to display fields for user to fill in.-->
+<div class="card">
+  <div class="card-header">
+    <h4>New Presentation</h4>
+  </div>
+  <div class="card-body">
+    <%= render 'form', presentation: @presentation, user: @user %>
+    <%= link_to 'Back', presentations_path , class:"btn btn-secondary"%>
+  </div>
+</div>

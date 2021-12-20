@@ -1,0 +1,12 @@
+<br/>
+<!--Card class to display evaluation and its attributes.-->
+<div class="card">
+  <div class="card-header">
+    <h4>Editing Evaluation</h4>
+  </div>
+  <div class="card-body">
+    <%= render 'form', evaluation: @evaluation %>
+    <%= link_to 'Show', @evaluation, class:'btn btn-secondary' %>
+    <%= link_to 'Back', evaluations_path, class:'btn btn-secondary' %>
+  </div>
+</div>
